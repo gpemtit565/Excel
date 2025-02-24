@@ -1,5 +1,4 @@
-vba
-
+```vba
 Sub DeleteDuplicateRowsInEachSheetExcludingSummary()
     Dim ws As Worksheet
     Dim lastRow As Long
@@ -32,3 +31,5 @@ Sub DeleteDuplicateRowsInEachSheetExcludingSummary()
         End If
     Next ws
 End Sub
+```
+
