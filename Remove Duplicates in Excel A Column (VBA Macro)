@@ -1,4 +1,4 @@
-```bas
+```vba
 Sub DeleteDuplicateRowsInEachSheetExcludingSummary()
     Dim ws As Worksheet
     Dim lastRow As Long
