@@ -1,0 +1,34 @@
+```bas
+Sub DeleteDuplicateRowsInEachSheetExcludingSummary()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim cell As Range
+    Dim dict As Object
+    Set dict = CreateObject("Scripting.Dictionary") ' 각 시트에 대해 딕셔너리 사용
+    
+    ' 각 시트를 순차적으로 처리
+    For Each ws In ThisWorkbook.Sheets
+        ' "통합" 시트를 제외
+        If ws.Name <> "통합" Then
+            ' A열의 마지막 데이터가 있는 행 찾기
+            lastRow = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+            
+            ' 각 시트별로 딕셔너리 초기화
+            Set dict = CreateObject("Scripting.Dictionary")
+            
+            ' A열을 순차적으로 검사
+            For i = lastRow To 1 Step -1 ' 마지막 행에서부터 역순으로 처리 (행 삭제시 문제 방지)
+                Set cell = ws.Cells(i, "A")
+                
+                ' 중복된 값이 이미 딕셔너리에 존재하면 해당 행 삭제
+                If dict.exists(cell.Value) Then
+                    cell.EntireRow.Delete
+                Else
+                    ' 없으면 딕셔너리에 추가
+                    dict.Add cell.Value, Nothing
+                End If
+            Next i
+        End If
+    Next ws
+End Sub
+```
